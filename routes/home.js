@@ -14,6 +14,10 @@ var Bookshelf = require('bookshelf')(knex);
 Bookshelf.plugin('pagination');
 
 var User = Bookshelf.Model.extend({
+    tableName: 'users'
+});
+
+var Message = Bookshelf.Model.extend({
     tableName: 'messages',
     hasTimestamps: true,
     user: function(){
@@ -32,6 +36,8 @@ router.get('/:id', (req, res, next) => {
 router.get('/:id/:page', (req, res, next) => {
     var id = req.params.id;
     id *= 1;
+    var pg = req.params.page;
+    pg *= 1;
     if (pg < 1){
         pg = 1;
     }
